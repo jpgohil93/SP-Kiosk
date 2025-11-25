@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="@dimen/card_padding"
+    android:background="@drawable/bg_card"
+    android:focusable="true"
+    android:clickable="true"
+    android:gravity="center"
+    android:minHeight="160dp">
+
+    <ImageView
+        android:id="@+id/tileIcon"
+        android:layout_width="@dimen/icon_size_large"
+        android:layout_height="@dimen/icon_size_large"
+        android:src="@android:drawable/ic_menu_preferences"
+        android:tint="@color/primary_action"
+        android:layout_marginBottom="@dimen/item_spacing"
+        tools:ignore="ContentDescription" />
+
+    <TextView
+        android:id="@+id/tileTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="Kiosk Mode"
+        android:textAppearance="@style/TextAppearance.TV.Title"
+        android:gravity="center"
+        android:layout_marginBottom="4dp" />
+
+    <TextView
+        android:id="@+id/tileDescription"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="Configure mode &amp; app"
+        android:textAppearance="@style/TextAppearance.TV.Caption"
+        android:textColor="@color/text_secondary"
+        android:gravity="center" />
+
+</LinearLayout>

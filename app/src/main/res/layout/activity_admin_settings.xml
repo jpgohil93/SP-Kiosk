@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="@dimen/screen_margin"
+    android:background="@color/primary_background"
+    tools:context=".ui.admin.AdminSettingsActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_marginBottom="@dimen/section_spacing">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Admin Settings"
+            android:textAppearance="@style/TextAppearance.TV.Display" />
+
+        <Button
+            android:id="@+id/exitButton"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/button_height"
+            android:text="Exit Admin"
+            android:background="@drawable/bg_button_secondary"
+            android:textColor="@color/text_secondary" />
+    </LinearLayout>
+
+    <!-- Kiosk Status Toggle Card -->
+    <LinearLayout
+        android:id="@+id/statusCard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="@dimen/card_padding"
+        android:background="@drawable/bg_card"
+        android:focusable="true"
+        android:clickable="true"
+        android:gravity="center_vertical"
+        android:layout_marginBottom="@dimen/section_spacing">
+
+        <ImageView
+            android:id="@+id/statusIcon"
+            android:layout_width="@dimen/icon_size_medium"
+            android:layout_height="@dimen/icon_size_medium"
+            android:src="@android:drawable/ic_lock_power_off"
+            android:tint="@color/text_secondary"
+            android:layout_marginEnd="@dimen/item_spacing" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/statusTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Kiosk Mode is DISABLED"
+                android:textAppearance="@style/TextAppearance.TV.Title" />
+
+            <TextView
+                android:id="@+id/statusDescription"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tap to enable kiosk protection"
+                android:textAppearance="@style/TextAppearance.TV.Subtitle"
+                android:textColor="@color/text_secondary" />
+        </LinearLayout>
+
+        <Switch
+            android:id="@+id/statusSwitch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="false"
+            android:focusable="false" />
+
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <GridLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:columnCount="2"
+            android:rowCount="3"
+            android:useDefaultMargins="true"
+            android:alignmentMode="alignMargins">
+
+            <!-- Tile 1: Kiosk Mode -->
+            <include
+                android:id="@+id/tileKioskMode"
+                layout="@layout/item_admin_tile"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_columnWeight="1"
+                android:layout_margin="@dimen/item_spacing" />
+
+            <!-- Tile 2: Wi-Fi -->
+            <include
+                android:id="@+id/tileWifi"
+                layout="@layout/item_admin_tile"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_columnWeight="1"
+                android:layout_margin="@dimen/item_spacing" />
+
+            <!-- Tile 3: Branding -->
+            <include
+                android:id="@+id/tileBranding"
+                layout="@layout/item_admin_tile"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_columnWeight="1"
+                android:layout_margin="@dimen/item_spacing" />
+
+            <!-- Tile 4: Updates -->
+            <include
+                android:id="@+id/tileUpdates"
+                layout="@layout/item_admin_tile"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_columnWeight="1"
+                android:layout_margin="@dimen/item_spacing" />
+
+            <!-- Tile 5: Export -->
+            <include
+                android:id="@+id/tileExport"
+                layout="@layout/item_admin_tile"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_columnWeight="1"
+                android:layout_margin="@dimen/item_spacing" />
+
+            <!-- Tile 6: Import -->
+            <include
+                android:id="@+id/tileImport"
+                layout="@layout/item_admin_tile"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_columnWeight="1"
+                android:layout_margin="@dimen/item_spacing" />
+
+        </GridLayout>
+    </ScrollView>
+
+</LinearLayout>
