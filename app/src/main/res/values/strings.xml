@@ -1,4 +1,0 @@
-<resources>
-    <string name="app_name">Kiosk App</string>
-    <string name="device_admin_description">Required to lock the device and prevent unauthorized access.</string>
-</resources>
