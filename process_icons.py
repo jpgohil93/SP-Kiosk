@@ -3,6 +3,7 @@ from PIL import Image
 
 # Configuration
 SOURCE_IMAGE = "/Users/jaydeepkubavat/.gemini/antigravity/brain/00a0f02f-1da2-4d22-869e-402110668d8e/uploaded_image_0_1764073925192.png"
+BANNER_SOURCE_IMAGE = "/Users/jaydeepkubavat/.gemini/antigravity/brain/00a0f02f-1da2-4d22-869e-402110668d8e/uploaded_image_0_1764074134255.png"
 PROJECT_ROOT = "/Users/jaydeepkubavat/Downloads/SP-Kiosk-Bugs Fixed/app/src/main/res"
 
 ICON_SIZES = {
@@ -45,16 +46,21 @@ def generate_icons():
         banner_dir = os.path.join(PROJECT_ROOT, BANNER_DIR)
         os.makedirs(banner_dir, exist_ok=True)
         
+        if os.path.exists(BANNER_SOURCE_IMAGE):
+            banner_img = Image.open(BANNER_SOURCE_IMAGE)
+        else:
+            banner_img = img
+
         # Create banner background (using a dominant color or white/black)
         # Here we'll use a dark background as requested/standard for TV
         banner = Image.new('RGBA', BANNER_SIZE, (30, 30, 30, 255))
         
         # Resize logo to fit within banner height (leaving padding)
         target_height = 120
-        aspect_ratio = img.width / img.height
+        aspect_ratio = banner_img.width / banner_img.height
         target_width = int(target_height * aspect_ratio)
         
-        logo_resized = img.resize((target_width, target_height), Image.Resampling.LANCZOS)
+        logo_resized = banner_img.resize((target_width, target_height), Image.Resampling.LANCZOS)
         
         # Center logo
         x = (BANNER_SIZE[0] - target_width) // 2
