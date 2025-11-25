@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="@dimen/screen_margin"
+    android:background="@color/primary_background"
+    tools:context=".ui.wifi.CaptiveWifiActivity">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Connect to Wi-Fi"
+        android:textAppearance="@style/TextAppearance.TV.Display"
+        android:layout_marginBottom="@dimen/item_spacing" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="This screen needs internet to load your menus."
+        android:textAppearance="@style/TextAppearance.TV.Subtitle"
+        android:layout_marginBottom="@dimen/section_spacing" />
+
+    <!-- Main Content Area -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+        <!-- Left: Network List -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/networksRecyclerView"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:scrollbars="vertical"
+            android:layout_marginEnd="@dimen/section_spacing" />
+
+        <!-- Right: Status / Info (Optional, keeping simple for now) -->
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5"
+            android:visibility="gone">
+            <!-- Placeholder for detailed info -->
+        </FrameLayout>
+
+    </LinearLayout>
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="gone" />
+
+    <!-- Bottom Actions -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="end"
+        android:layout_marginTop="@dimen/section_spacing">
+
+        <Button
+            android:id="@+id/scanButton"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/button_height"
+            android:text="Scan Again"
+            android:background="@drawable/bg_button_secondary"
+            android:textColor="@color/secondary_accent"
+            android:layout_marginEnd="@dimen/item_spacing"
+            android:paddingHorizontal="@dimen/card_padding" />
+
+        <Button
+            android:id="@+id/skipButton"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/button_height"
+            android:text="Skip (Offline)"
+            android:background="@drawable/bg_button_secondary"
+            android:textColor="@color/text_secondary"
+            android:paddingHorizontal="@dimen/card_padding" />
+
+    </LinearLayout>
+
+</LinearLayout>

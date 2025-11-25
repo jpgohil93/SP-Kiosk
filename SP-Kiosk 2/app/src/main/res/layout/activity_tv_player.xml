@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black"
+    tools:context=".ui.tv.TvPlayerActivity">
+
+    <WebView
+        android:id="@+id/webView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <!-- Loading Overlay -->
+    <LinearLayout
+        android:id="@+id/loadingOverlay"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:background="@color/primary_background"
+        android:visibility="visible">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Screen Pulse TV"
+            android:textAppearance="@style/TextAppearance.TV.Display"
+            android:textColor="@color/primary_action"
+            android:layout_marginBottom="@dimen/item_spacing" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Loading content..."
+            android:textAppearance="@style/TextAppearance.TV.Subtitle"
+            android:layout_marginBottom="@dimen/section_spacing" />
+
+        <ProgressBar
+            android:id="@+id/loadingIndicator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:indeterminateTint="@color/secondary_accent" />
+            
+        <TextView
+            android:id="@+id/errorText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Error loading player. Retrying..."
+            android:textColor="@color/text_error"
+            android:textAppearance="@style/TextAppearance.TV.Body"
+            android:visibility="gone"
+            android:layout_marginTop="@dimen/item_spacing" />
+
+    </LinearLayout>
+
+</FrameLayout>

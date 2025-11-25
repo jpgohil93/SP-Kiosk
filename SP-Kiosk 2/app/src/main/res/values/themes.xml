@@ -1,0 +1,50 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Theme.KioskApp" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/primary_action</item>
+        <item name="colorPrimaryVariant">@color/primary_action</item>
+        <item name="colorOnPrimary">@color/text_on_primary</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/secondary_accent</item>
+        <item name="colorSecondaryVariant">@color/secondary_accent</item>
+        <item name="colorOnSecondary">@color/text_on_primary</item>
+        <!-- Backgrounds -->
+        <item name="android:windowBackground">@color/primary_background</item>
+        <item name="android:colorBackground">@color/primary_background</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor">@color/primary_background</item>
+        <item name="android:windowLightStatusBar">true</item>
+        
+        <!-- Typography -->
+        <item name="android:fontFamily">sans-serif</item>
+    </style>
+
+    <style name="Theme.KioskApp.Fullscreen" parent="Theme.KioskApp">
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+    </style>
+    
+    <!-- TV Text Styles -->
+    <style name="TextAppearance.TV.Display" parent="TextAppearance.MaterialComponents.Headline3">
+        <item name="android:textSize">@dimen/text_size_display</item>
+        <item name="android:textColor">@color/text_primary</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+    
+    <style name="TextAppearance.TV.Title" parent="TextAppearance.MaterialComponents.Headline5">
+        <item name="android:textSize">@dimen/text_size_title</item>
+        <item name="android:textColor">@color/text_primary</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+    
+    <style name="TextAppearance.TV.Subtitle" parent="TextAppearance.MaterialComponents.Subtitle1">
+        <item name="android:textSize">@dimen/text_size_subtitle</item>
+        <item name="android:textColor">@color/text_secondary</item>
+    </style>
+    
+    <style name="TextAppearance.TV.Body" parent="TextAppearance.MaterialComponents.Body1">
+        <item name="android:textSize">@dimen/text_size_body</item>
+        <item name="android:textColor">@color/text_primary</item>
+    </style>
+</resources>
