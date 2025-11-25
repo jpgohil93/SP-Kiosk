@@ -70,6 +70,13 @@ def generate_icons():
         banner.save(os.path.join(banner_dir, "tv_banner.png"))
         print(f"Generated TV Banner ({BANNER_SIZE[0]}x{BANNER_SIZE[1]})")
 
+        # Generate Play Store Icon (512x512)
+        play_store_icon_size = 512
+        play_store_icon = img.resize((play_store_icon_size, play_store_icon_size), Image.Resampling.LANCZOS)
+        play_store_icon_path = os.path.join(PROJECT_ROOT, "../ic_launcher-playstore.png")
+        play_store_icon.save(play_store_icon_path)
+        print(f"Generated Play Store Icon ({play_store_icon_size}x{play_store_icon_size})")
+
     except Exception as e:
         print(f"Failed to process images: {e}")
 
