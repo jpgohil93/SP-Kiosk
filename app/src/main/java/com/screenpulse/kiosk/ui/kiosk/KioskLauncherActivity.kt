@@ -45,6 +45,9 @@ class KioskLauncherActivity : AppCompatActivity() {
             isConnected = connected
         }
 
+        // Initialize Remote Client
+        com.screenpulse.kiosk.core.remote.RemoteClient.init(ConfigManager.getConfig(this))
+
         systemUiController = SystemUiController(this)
         setupGestureDetector()
         
@@ -97,6 +100,17 @@ class KioskLauncherActivity : AppCompatActivity() {
             // Launch Captive Wifi Activity
             val intent = Intent(this, com.screenpulse.kiosk.ui.wifi.CaptiveWifiActivity::class.java)
             startActivityForResult(intent, 1001)
+            return
+        }
+
+        // Check Remote Support Setup
+        if (config.wifiOnboardingCompleted && (!config.remoteControlEnabled || !config.remoteScreenEnabled)) {
+            val intent = Intent(this, com.screenpulse.kiosk.ui.remote.RemoteSetupActivity::class.java)
+            startActivity(intent)
+            // We don't return here because we want to allow the launcher to proceed in background or just pause
+            // But actually, we should probably return to avoid launching the kiosk app on top immediately
+            // However, RemoteSetupActivity is just a standard activity.
+            // Let's return to ensure it takes focus.
             return
         }
 

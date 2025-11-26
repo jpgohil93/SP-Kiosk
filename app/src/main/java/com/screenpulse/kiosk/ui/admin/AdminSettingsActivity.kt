@@ -111,6 +111,15 @@ class AdminSettingsActivity : AppCompatActivity() {
         tileImport.setOnClickListener {
             importLauncher.launch(arrayOf("application/json"))
         }
+
+        // Remote Support Tile
+        val tileRemote = findViewById<android.view.View>(com.screenpulse.kiosk.R.id.tileRemote)
+        tileRemote.findViewById<TextView>(com.screenpulse.kiosk.R.id.tileTitle).text = "Remote Support"
+        tileRemote.findViewById<TextView>(com.screenpulse.kiosk.R.id.tileDescription).text = "Enable Control & Screen"
+        tileRemote.findViewById<android.widget.ImageView>(com.screenpulse.kiosk.R.id.tileIcon).setImageResource(android.R.drawable.ic_menu_help)
+        tileRemote.setOnClickListener {
+            startActivity(Intent(this, com.screenpulse.kiosk.ui.remote.RemoteSetupActivity::class.java))
+        }
     }
 
     private fun showKioskModeDialog() {

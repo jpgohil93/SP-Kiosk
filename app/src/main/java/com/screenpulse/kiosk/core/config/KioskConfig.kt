@@ -17,7 +17,11 @@ data class KioskConfig(
     @SerializedName("adminPin") var adminPin: String = "0000",
     @SerializedName("wifiProfiles") var wifiProfiles: MutableList<WifiProfile> = mutableListOf(),
     @SerializedName("branding") var branding: BrandingConfig = BrandingConfig(),
-    @SerializedName("update") var update: UpdateConfig = UpdateConfig()
+    @SerializedName("update") var update: UpdateConfig = UpdateConfig(),
+    @SerializedName("remoteControlEnabled") var remoteControlEnabled: Boolean = false,
+    @SerializedName("remoteScreenEnabled") var remoteScreenEnabled: Boolean = false,
+    @SerializedName("remoteDeviceId") var remoteDeviceId: String? = null,
+    @SerializedName("remoteApiBaseUrl") var remoteApiBaseUrl: String = "http://10.0.2.2:8080" // Default to emulator host loopback for safety
 )
 
 data class WifiProfile(

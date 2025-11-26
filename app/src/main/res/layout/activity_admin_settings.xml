@@ -39,7 +39,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:columnCount="2"
-            android:rowCount="3"
+            android:rowCount="4"
             android:useDefaultMargins="true"
             android:alignmentMode="alignMargins">
 
@@ -91,6 +91,15 @@
             <!-- Tile 6: Import -->
             <include
                 android:id="@+id/tileImport"
+                layout="@layout/item_admin_tile"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_columnWeight="1"
+                android:layout_margin="@dimen/item_spacing" />
+
+            <!-- Tile 7: Remote Support -->
+            <include
+                android:id="@+id/tileRemote"
                 layout="@layout/item_admin_tile"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
