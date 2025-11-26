@@ -35,12 +35,21 @@ class RemoteSetupActivity : AppCompatActivity() {
 
     private fun setupUI() {
         binding.btnEnableControl.setOnClickListener {
-            val intent = Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS)
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             try {
-                startActivity(intent)
+                val intent = Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS)
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                if (intent.resolveActivity(packageManager) != null) {
+                    startActivity(intent)
+                } else {
+                    // Fallback
+                    val fallbackIntent = Intent(Settings.ACTION_SETTINGS)
+                    fallbackIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    startActivity(fallbackIntent)
+                    Toast.makeText(this, "Please find Accessibility Settings manually", Toast.LENGTH_LONG).show()
+                }
             } catch (e: Exception) {
-                Toast.makeText(this, "Cannot open settings", Toast.LENGTH_SHORT).show()
+                android.util.Log.e("RemoteSetup", "Error opening settings", e)
+                Toast.makeText(this, "Cannot open settings: ${e.message}", Toast.LENGTH_SHORT).show()
             }
         }
 

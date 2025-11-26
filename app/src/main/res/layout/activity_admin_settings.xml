@@ -43,6 +43,15 @@
             android:useDefaultMargins="true"
             android:alignmentMode="alignMargins">
 
+            <!-- Tile 0: Toggle Kiosk -->
+            <include
+                android:id="@+id/tileToggleKiosk"
+                layout="@layout/item_admin_tile"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_columnWeight="1"
+                android:layout_margin="@dimen/item_spacing" />
+
             <!-- Tile 1: Kiosk Mode -->
             <include
                 android:id="@+id/tileKioskMode"

@@ -57,6 +57,22 @@ class AdminSettingsActivity : AppCompatActivity() {
     }
     
     private fun setupTiles() {
+        // Toggle Kiosk Tile
+        val tileToggleKiosk = findViewById<android.view.View>(com.screenpulse.kiosk.R.id.tileToggleKiosk)
+        tileToggleKiosk.setOnClickListener {
+            val enabled = KioskManager.isKioskEnabled(this)
+            if (enabled) {
+                KioskManager.stopKioskMode(this)
+                Toast.makeText(this, "Kiosk Mode Disabled", Toast.LENGTH_SHORT).show()
+            } else {
+                if (checkPermissions()) {
+                    KioskManager.startKioskMode(this)
+                    Toast.makeText(this, "Kiosk Mode Enabled", Toast.LENGTH_SHORT).show()
+                }
+            }
+            refreshUI()
+        }
+
         // Kiosk Mode Tile
         val tileKioskMode = findViewById<android.view.View>(com.screenpulse.kiosk.R.id.tileKioskMode)
         tileKioskMode.findViewById<TextView>(com.screenpulse.kiosk.R.id.tileTitle).text = "Kiosk Mode"
@@ -150,16 +166,24 @@ class AdminSettingsActivity : AppCompatActivity() {
     
     private fun refreshUI() {
         val enabled = KioskManager.isKioskEnabled(this)
-        statusText.text = "Kiosk Mode: ${if (enabled) "ENABLED" else "DISABLED"}"
-        toggleKioskButton.text = if (enabled) "Disable Kiosk Mode" else "Enable Kiosk Mode"
+        
+        val tileToggleKiosk = findViewById<android.view.View>(com.screenpulse.kiosk.R.id.tileToggleKiosk)
+        tileToggleKiosk.findViewById<TextView>(com.screenpulse.kiosk.R.id.tileTitle).text = if (enabled) "Disable Kiosk" else "Enable Kiosk"
+        tileToggleKiosk.findViewById<TextView>(com.screenpulse.kiosk.R.id.tileDescription).text = if (enabled) "Stop supervision" else "Start supervision"
+        tileToggleKiosk.findViewById<android.widget.ImageView>(com.screenpulse.kiosk.R.id.tileIcon).setImageResource(
+            if (enabled) android.R.drawable.ic_lock_power_off else android.R.drawable.ic_lock_idle_lock
+        )
+        
+        // statusText.text = "Kiosk Mode: ${if (enabled) "ENABLED" else "DISABLED"}" // Removed legacy
+        // toggleKioskButton.text = if (enabled) "Disable Kiosk Mode" else "Enable Kiosk Mode" // Removed legacy
         
         val config = ConfigManager.getConfig(this)
         
         if (config.kioskMode == com.screenpulse.kiosk.core.config.KioskMode.GENERIC_KIOSK) {
-            selectAppButton.visibility = android.view.View.VISIBLE
-            selectAppButton.text = "App: ${config.approvedAppPackage ?: "None"}"
+            // selectAppButton.visibility = android.view.View.VISIBLE // Removed legacy
+            // selectAppButton.text = "App: ${config.approvedAppPackage ?: "None"}" // Removed legacy
         } else {
-            selectAppButton.visibility = android.view.View.GONE
+            // selectAppButton.visibility = android.view.View.GONE // Removed legacy
         }
     }
     
