@@ -62,11 +62,11 @@ class AdminSettingsActivity : AppCompatActivity() {
         tileToggleKiosk.setOnClickListener {
             val enabled = KioskManager.isKioskEnabled(this)
             if (enabled) {
-                KioskManager.stopKioskMode(this)
+                KioskManager.disableKioskMode(this)
                 Toast.makeText(this, "Kiosk Mode Disabled", Toast.LENGTH_SHORT).show()
             } else {
                 if (checkPermissions()) {
-                    KioskManager.startKioskMode(this)
+                    KioskManager.enableKioskMode(this)
                     Toast.makeText(this, "Kiosk Mode Enabled", Toast.LENGTH_SHORT).show()
                 }
             }
