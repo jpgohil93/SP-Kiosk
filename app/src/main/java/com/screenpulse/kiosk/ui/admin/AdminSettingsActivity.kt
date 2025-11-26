@@ -59,16 +59,29 @@ class AdminSettingsActivity : AppCompatActivity() {
     private fun setupTiles() {
         // Toggle Kiosk Tile
         val tileToggleKiosk = findViewById<android.view.View>(com.screenpulse.kiosk.R.id.tileToggleKiosk)
+        val kioskSwitch = tileToggleKiosk.findViewById<android.widget.Switch>(com.screenpulse.kiosk.R.id.tileSwitch)
+        
+        kioskSwitch.visibility = android.view.View.VISIBLE
+        
+        // Handle Tile Click (Toggle Switch)
         tileToggleKiosk.setOnClickListener {
-            val enabled = KioskManager.isKioskEnabled(this)
-            if (enabled) {
-                KioskManager.disableKioskMode(this)
-                Toast.makeText(this, "Kiosk Mode Disabled", Toast.LENGTH_SHORT).show()
-            } else {
+            kioskSwitch.toggle()
+        }
+
+        // Handle Switch Change
+        kioskSwitch.setOnCheckedChangeListener { _, isChecked ->
+            val currentlyEnabled = KioskManager.isKioskEnabled(this)
+            if (isChecked && !currentlyEnabled) {
                 if (checkPermissions()) {
                     KioskManager.enableKioskMode(this)
                     Toast.makeText(this, "Kiosk Mode Enabled", Toast.LENGTH_SHORT).show()
+                } else {
+                    // Revert if permissions denied
+                    kioskSwitch.isChecked = false
                 }
+            } else if (!isChecked && currentlyEnabled) {
+                KioskManager.disableKioskMode(this)
+                Toast.makeText(this, "Kiosk Mode Disabled", Toast.LENGTH_SHORT).show()
             }
             refreshUI()
         }
@@ -168,11 +181,31 @@ class AdminSettingsActivity : AppCompatActivity() {
         val enabled = KioskManager.isKioskEnabled(this)
         
         val tileToggleKiosk = findViewById<android.view.View>(com.screenpulse.kiosk.R.id.tileToggleKiosk)
-        tileToggleKiosk.findViewById<TextView>(com.screenpulse.kiosk.R.id.tileTitle).text = if (enabled) "Turn Kiosk OFF" else "Turn Kiosk ON"
-        tileToggleKiosk.findViewById<TextView>(com.screenpulse.kiosk.R.id.tileDescription).text = if (enabled) "Stop supervision" else "Start supervision"
+        tileToggleKiosk.findViewById<TextView>(com.screenpulse.kiosk.R.id.tileTitle).text = "Enable Kiosk Mode"
+        tileToggleKiosk.findViewById<TextView>(com.screenpulse.kiosk.R.id.tileDescription).text = if (enabled) "Active" else "Inactive"
         tileToggleKiosk.findViewById<android.widget.ImageView>(com.screenpulse.kiosk.R.id.tileIcon).setImageResource(
-            if (enabled) android.R.drawable.ic_lock_power_off else android.R.drawable.ic_lock_idle_lock
+            if (enabled) android.R.drawable.ic_lock_idle_lock else android.R.drawable.ic_lock_power_off
         )
+        
+        // Update Switch without triggering listener
+        val kioskSwitch = tileToggleKiosk.findViewById<android.widget.Switch>(com.screenpulse.kiosk.R.id.tileSwitch)
+        kioskSwitch.setOnCheckedChangeListener(null)
+        kioskSwitch.isChecked = enabled
+        kioskSwitch.setOnCheckedChangeListener { _, isChecked ->
+            val currentlyEnabled = KioskManager.isKioskEnabled(this)
+            if (isChecked && !currentlyEnabled) {
+                if (checkPermissions()) {
+                    KioskManager.enableKioskMode(this)
+                    Toast.makeText(this, "Kiosk Mode Enabled", Toast.LENGTH_SHORT).show()
+                } else {
+                    kioskSwitch.isChecked = false
+                }
+            } else if (!isChecked && currentlyEnabled) {
+                KioskManager.disableKioskMode(this)
+                Toast.makeText(this, "Kiosk Mode Disabled", Toast.LENGTH_SHORT).show()
+            }
+            refreshUI()
+        }
         
         // statusText.text = "Kiosk Mode: ${if (enabled) "ENABLED" else "DISABLED"}" // Removed legacy
         // toggleKioskButton.text = if (enabled) "Disable Kiosk Mode" else "Enable Kiosk Mode" // Removed legacy
