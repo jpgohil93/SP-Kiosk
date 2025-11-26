@@ -35,7 +35,13 @@ class RemoteSetupActivity : AppCompatActivity() {
 
     private fun setupUI() {
         binding.btnEnableControl.setOnClickListener {
-            startActivity(Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS))
+            val intent = Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS)
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            try {
+                startActivity(intent)
+            } catch (e: Exception) {
+                Toast.makeText(this, "Cannot open settings", Toast.LENGTH_SHORT).show()
+            }
         }
 
         binding.btnEnableScreen.setOnClickListener {
@@ -56,6 +62,13 @@ class RemoteSetupActivity : AppCompatActivity() {
 
         // Update Config
         val config = ConfigManager.getConfig(this)
+        
+        // Ensure Device ID exists
+        if (config.remoteDeviceId == null) {
+            config.remoteDeviceId = java.util.UUID.randomUUID().toString()
+            ConfigManager.saveConfig(this, config)
+        }
+
         if (config.remoteControlEnabled != isAccessibilityEnabled) {
             config.remoteControlEnabled = isAccessibilityEnabled
             ConfigManager.saveConfig(this, config)
@@ -94,11 +107,18 @@ class RemoteSetupActivity : AppCompatActivity() {
     }
 
     private fun isAccessibilityServiceEnabled(context: Context, service: Class<out android.accessibilityservice.AccessibilityService>): Boolean {
-        val am = context.getSystemService(Context.ACCESSIBILITY_SERVICE) as android.view.accessibility.AccessibilityManager
-        val enabledServices = am.getEnabledAccessibilityServiceList(android.accessibilityservice.AccessibilityServiceInfo.FEEDBACK_ALL_MASK)
-        for (enabledService in enabledServices) {
-            val serviceInfo = enabledService.resolveInfo.serviceInfo
-            if (serviceInfo.packageName == context.packageName && serviceInfo.name == service.name) {
+        val expectedComponentName = "${context.packageName}/${service.name}"
+        val enabledServicesSetting = Settings.Secure.getString(
+            context.contentResolver,
+            Settings.Secure.ENABLED_ACCESSIBILITY_SERVICES
+        ) ?: return false
+        
+        val colonSplitter = android.text.TextUtils.SimpleStringSplitter(':')
+        colonSplitter.setString(enabledServicesSetting)
+        
+        while (colonSplitter.hasNext()) {
+            val componentName = colonSplitter.next()
+            if (componentName.equals(expectedComponentName, ignoreCase = true)) {
                 return true
             }
         }

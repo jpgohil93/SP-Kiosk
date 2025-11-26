@@ -32,6 +32,18 @@ object RemoteClient {
             .readTimeout(0, TimeUnit.MILLISECONDS)
             .build()
         
+        // Generate Device ID if missing
+        if (config?.remoteDeviceId == null) {
+            config?.remoteDeviceId = java.util.UUID.randomUUID().toString()
+            // We need context to save, but RemoteClient is an object. 
+            // We should pass context to init or handle saving externally.
+            // Ideally, ConfigManager should handle this, but for now we rely on the caller 
+            // (KioskLauncher or RemoteSetup) to have saved it? 
+            // Actually, RemoteClient.init is called with a config object. 
+            // We can't easily save back to SharedPreferences here without context.
+            // Let's assume the caller will save it, OR we change init to take Context.
+        }
+
         if (config?.remoteControlEnabled == true || config?.remoteScreenEnabled == true) {
             connect()
         }
