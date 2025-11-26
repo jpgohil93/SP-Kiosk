@@ -21,7 +21,7 @@ data class KioskConfig(
     @SerializedName("remoteControlEnabled") var remoteControlEnabled: Boolean = false,
     @SerializedName("remoteScreenEnabled") var remoteScreenEnabled: Boolean = false,
     @SerializedName("remoteDeviceId") var remoteDeviceId: String? = null,
-    @SerializedName("remoteApiBaseUrl") var remoteApiBaseUrl: String = "http://10.0.2.2:8080" // Default to emulator host loopback for safety
+    @SerializedName("remoteApiBaseUrl") var remoteApiBaseUrl: String = "http://192.168.1.179:8080" // LAN IP for physical device testing
 )
 
 data class WifiProfile(

@@ -168,7 +168,7 @@ class AdminSettingsActivity : AppCompatActivity() {
         val enabled = KioskManager.isKioskEnabled(this)
         
         val tileToggleKiosk = findViewById<android.view.View>(com.screenpulse.kiosk.R.id.tileToggleKiosk)
-        tileToggleKiosk.findViewById<TextView>(com.screenpulse.kiosk.R.id.tileTitle).text = if (enabled) "Disable Kiosk" else "Enable Kiosk"
+        tileToggleKiosk.findViewById<TextView>(com.screenpulse.kiosk.R.id.tileTitle).text = if (enabled) "Turn Kiosk OFF" else "Turn Kiosk ON"
         tileToggleKiosk.findViewById<TextView>(com.screenpulse.kiosk.R.id.tileDescription).text = if (enabled) "Stop supervision" else "Start supervision"
         tileToggleKiosk.findViewById<android.widget.ImageView>(com.screenpulse.kiosk.R.id.tileIcon).setImageResource(
             if (enabled) android.R.drawable.ic_lock_power_off else android.R.drawable.ic_lock_idle_lock
